@@ -39,7 +39,7 @@ uvicorn main:app --reload
 1. npm install @mui/material @emotion/react @emotion/styled
 2. npm install lucide-react
 
-### FastApi
+### FastAPI
 
 1. python -m venv venv
 2. .\venv\Scripts\Activate
