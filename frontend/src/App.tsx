@@ -19,6 +19,7 @@ export default function Component() {
   const [events, setEvents] = useState<Event[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [eventDescription, setEventDescription] = useState('')
+  const [email, setEmail] = useState('') 
 
   const goToPreviousMonth = () => {
     setCurrentDate(prevDate => new Date(prevDate.getFullYear(), prevDate.getMonth() - 1, 1))
@@ -35,16 +36,38 @@ export default function Component() {
     setIsModalOpen(true)
   }
 
-  const saveEvent = () => {
-    if (selectedDate && eventDescription) {
-      const dateString = selectedDate.toISOString().split('T')[0]
+  const saveEvent = async () => {
+    if (selectedDate && eventDescription && email) {
+      const dateString = selectedDate.toISOString().split('T')[0];
       setEvents(prevEvents => {
-        const newEvents = prevEvents.filter(event => event.date !== dateString)
-        return [...newEvents, { date: dateString, description: eventDescription }]
-      })
+        const newEvents = prevEvents.filter(event => event.date !== dateString);
+        return [...newEvents, { date: dateString, description: eventDescription }];
+      });
+  
+      // Enviar solicitud al backend para enviar el recordatorio por correo
+      try {
+        const response = await fetch("http://localhost:8000/send-reminder/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            date: dateString,
+            description: eventDescription,
+          }),
+        });
+  
+        if (!response.ok) {
+          throw new Error("Error al enviar el recordatorio");
+        }
+      } catch (error) {
+        console.error("Hubo un problema al enviar el recordatorio:", error);
+      }
     }
-    setIsModalOpen(false)
-  }
+    setIsModalOpen(false);
+  };
+  
 
   const renderCalendar = () => {
     const year = currentDate.getFullYear()
@@ -129,6 +152,18 @@ export default function Component() {
                   id="event"
                   value={eventDescription}
                   onChange={(e) => setEventDescription(e.target.value)}
+                  className="col-span-3"
+                />
+              </div>
+              <div className="grid grid-cols-4 items-center gap-4">
+                <Label htmlFor="email" className="text-right">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Gmail"
                   className="col-span-3"
                 />
               </div>

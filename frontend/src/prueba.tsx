@@ -82,6 +82,12 @@ export default function Component() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
+        {/* Título principal de la aplicación */}
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-extrabold text-indigo-600 mb-2">Calendar Adviser</h1>
+          <p className="text-xl text-gray-500">Organiza tus eventos y tareas fácilmente</p>
+        </div>
+
         <div className="flex justify-between items-center mb-6">
           <Button variant="outline" size="icon" onClick={goToPreviousMonth}>
             <ChevronLeft className="h-6 w-6" />
@@ -93,6 +99,7 @@ export default function Component() {
             <ChevronRight className="h-6 w-6" />
           </Button>
         </div>
+
         <div className="grid grid-cols-7 gap-2 mb-4">
           {daysOfWeek.map(day => (
             <div key={day} className="text-center font-medium text-lg">
@@ -100,9 +107,11 @@ export default function Component() {
             </div>
           ))}
         </div>
+
         <div className="grid grid-cols-7 gap-2">
           {renderCalendar()}
         </div>
+
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogContent>
             <DialogHeader>
