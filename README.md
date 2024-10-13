@@ -24,6 +24,27 @@ npm start
 
 uvicorn main:app --reload
 
+## Requirements
+
+### Install node and npm on Windows, attach url of official site Node.js(use Powersheel with Administrator Permission)
+
+1. https://nodejs.org/en/download/package-manager
+
+### React commands to create /frontend
+
+1.  npx create-react-app frontend --template typescript
+
+### React dependences
+
+1. npm install @mui/material @emotion/react @emotion/styled
+2. npm install lucide-react
+
+### FastApi
+
+1. python -m venv venv
+2. .\venv\Scripts\Activate
+3. pip install fastapi pydantic python-dotenv uvicorn aiofiles
+
 ## Additional Notes
 
 1. A virtual environment has been created to deploy the entire backend.
