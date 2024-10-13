@@ -28,7 +28,7 @@ uvicorn main:app --reload
 
 ### Install node and npm on Windows, attach url of official site Node.js(use Powersheel with Administrator Permission)
 
-1. https://nodejs.org/en/download/package-manager
+1.  https://nodejs.org/en/download/package-manager
 
 ### React commands to create /frontend
 
